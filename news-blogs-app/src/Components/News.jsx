@@ -5,6 +5,8 @@ import "./News.css";
 import userImg from "../assets/images/userRene.jpg";
 import noImg from "../assets/images/no-img.png";
 import axios from "axios";
+import NewsModal from "./NewsModal";
+import "./NewsModal.css";
 
 const categories = [
   "general",
@@ -21,10 +23,17 @@ const categories = [
 const News = () => {
   const [headline, setHeadline] = useState(null);
   const [news, setNews] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("general");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchNews = async () => {
-      const url = `https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=9b0db295fbc18ccff1d2a7111285767d`;
+      let url = `https://gnews.io/api/v4/top-headlines?category=${selectedCategory}&lang=en&apikey=9b0db295fbc18ccff1d2a7111285767d`;
+
+      if (searchQuery) {
+        url = `https://gnews.io/api/v4/search?q=${searchQuery}&lang=en&apikey=9b0db295fbc18ccff1d2a7111285767d`;
+      }
       const response = await axios.get(url);
       const fetchedNews = response.data.articles;
       setHeadline(fetchedNews[0]);
@@ -36,15 +45,31 @@ const News = () => {
       });
     };
     fetchNews();
-  }, []);
+  }, [selectedCategory, searchQuery]);
+
+  const handleCategoryClick = (e, category) => {
+    e.preventDefault();
+    setSelectedCategory(category);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchQuery(searchInput);
+    setSearchInput("");
+  };
 
   return (
     <div className="news">
       <header className="news-header">
         <h1 className="logo">News & Blogs</h1>
         <div className="search-bar">
-          <form>
-            <input type="text" placeholder="Search News..." />
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search News..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
             <button type="submit">
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -60,33 +85,17 @@ const News = () => {
           <nav className="categories">
             <h1 className="nav-heading">Categories</h1>
             <div className="nav-links">
-              <a href="#" className="nav-link">
-                General
-              </a>
-              <a href="#" className="nav-link">
-                World
-              </a>
-              <a href="#" className="nav-link">
-                Business
-              </a>
-              <a href="#" className="nav-link">
-                Technology
-              </a>
-              <a href="#" className="nav-link">
-                Entertainment
-              </a>
-              <a href="#" className="nav-link">
-                Sports
-              </a>
-              <a href="#" className="nav-link">
-                Science
-              </a>
-              <a href="#" className="nav-link">
-                Health
-              </a>
-              <a href="#" className="nav-link">
-                Nation
-              </a>{" "}
+              {categories.map((category) => (
+                <a
+                  href="#"
+                  key={category}
+                  className="nav-link"
+                  onClick={(e) => handleCategoryClick(e, category)}
+                >
+                  {category}
+                </a>
+              ))}
+
               <a href="#" className="nav-link">
                 Bookmarks <i className="fa-regular fa-bookmark"></i>
               </a>
@@ -116,6 +125,7 @@ const News = () => {
             ))}
           </div>
         </div>
+        <NewsModal />
         <div className="my-blogs">My Blogs</div>
         <div className="weather-calendar">
           <Weather />
