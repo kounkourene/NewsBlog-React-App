@@ -3,45 +3,43 @@ import "./Modal.css";
 import demoImg from "../assets/images/demo.jpg";
 import "./Bookmarks.css";
 
-const Bookmarks = () => {
+const Bookmarks = ({
+  show,
+  bookmarks,
+  onClose,
+  onSelectArticle,
+  onDeleteBookmark,
+}) => {
+  if (!show) {
+    return null;
+  }
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <span className="close-button">
+        <span className="close-button" onClick={onClose}>
           <i className="fa-solid fa-xmark"></i>
         </span>
         <h2 className="bookmarks-heading">Bookmarked News</h2>
         <div className="bookmarks-list">
-          <div className="bookmarks-item">
-            <img src={demoImg} alt="Bookmark Image" />
-            <h3>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non,
-              quis.
-            </h3>
-            <span className="delete-button">
-              <i className="fa-regular fa-circle-xmark"></i>
-            </span>
-          </div>
-          <div className="bookmarks-item">
-            <img src={demoImg} alt="Bookmark Image" />
-            <h3>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non,
-              quis.
-            </h3>
-            <span className="delete-button">
-              <i className="fa-regular fa-circle-xmark"></i>
-            </span>
-          </div>
-          <div className="bookmarks-item">
-            <img src={demoImg} alt="Bookmark Image" />
-            <h3>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non,
-              quis.
-            </h3>
-            <span className="delete-button">
-              <i className="fa-regular fa-circle-xmark"></i>
-            </span>
-          </div>
+          {bookmarks.map((article, index) => (
+            <div
+              className="bookmarks-item"
+              key={index}
+              onClick={() => onSelectArticle(article)}
+            >
+              <img src={article.image || noImg} alt={article.title} />
+              <h3>{article.title}</h3>
+              <span
+                className="delete-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDeleteBookmark(article);
+                }}
+              >
+                <i className="fa-regular fa-circle-xmark"></i>
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
