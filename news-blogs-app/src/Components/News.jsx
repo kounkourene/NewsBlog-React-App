@@ -6,6 +6,7 @@ import userImg from "../assets/images/userRene.jpg";
 import noImg from "../assets/images/no-img.png";
 import axios from "axios";
 import NewsModal from "./NewsModal";
+import Bookmarks from "./Bookmarks";
 
 const categories = [
   "general",
@@ -143,6 +144,7 @@ const News = () => {
           article={selectedArticle}
           onClose={() => setShowModal(false)}
         />
+        <Bookmarks />
         <div className="my-blogs">My Blogs</div>
         <div className="weather-calendar">
           <Weather />
