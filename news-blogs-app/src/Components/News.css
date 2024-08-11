@@ -69,7 +69,7 @@
 }
 
 .navbar {
-  width: 18rem;
+  width: 30rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -109,6 +109,8 @@
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   row-gap: 2rem;
   padding: 2rem;
 }
@@ -143,7 +145,7 @@
 }
 
 .news-section {
-  width: clamp(30rem, 43cqi, 40%);
+  /*width: clamp(30rem, 43cqi, 40%);*/
   height: 100%;
   border-radius: 1rem;
 }
@@ -231,23 +233,19 @@
   border-radius: 0 0 1rem 1rem;
 }
 
-.my-blogs {
-  width: clamp(20rem, 27cqi, 28%);
-  height: 100%;
-  background-color: #111214;
-  border-radius: 1rem;
-}
-
-.weather-calendar {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  row-gap: 2rem;
-}
-
 .news-footer {
   width: 100%;
   min-height: 5rem;
   background-color: #111214;
   border-radius: 0 0 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+}
+
+.news-footer p {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #bbb;
 }

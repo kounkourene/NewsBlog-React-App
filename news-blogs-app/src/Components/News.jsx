@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "./Calendar";
-import Weather from "./Weather";
 import "./News.css";
 import userImg from "../assets/images/userRene.jpg";
 import noImg from "../assets/images/no-img.png";
@@ -192,13 +190,13 @@ const News = () => {
           onSelectArticle={handleArticleClick}
           onDeleteBookmark={handleBookmarkClick}
         />
-        <div className="my-blogs">My Blogs</div>
-        <div className="weather-calendar">
-          <Weather />
-          <Calendar />
-        </div>
       </div>
-      <footer className="news-footer">Footer</footer>
+      <footer className="news-footer">
+        <p>
+          <span>News & Blogs App</span>
+        </p>
+        <p>&copy; All Right Reserved. By Rene Kounkou</p>
+      </footer>
     </div>
   );
 };
