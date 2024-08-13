@@ -8,3 +8,4 @@ Major features of the Website:
 
   This website can be accessed by following this link: https://rene-news-blog.netlify.app/
 
+
